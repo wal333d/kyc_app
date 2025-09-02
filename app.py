@@ -4,10 +4,22 @@ from pathlib import Path
 import io, base64, uuid, datetime, sqlite3
 import numpy as np, cv2
 from PIL import Image, ImageOps, ImageFilter
-import pytesseract, fitz
+import fitz  # from PyMuPDF
 from paddleocr import PaddleOCR
 import onnxruntime as ort
 from insightface.app import FaceAnalysis
+
+from paddleocr import PaddleOCR
+ocr = PaddleOCR(use_angle_cls=True, lang='en')  # init once (e.g., at module scope)
+
+def ocr_image(img_path):
+    result = ocr.ocr(img_path, cls=True)
+    lines = []
+    for page in result:
+        for box, (text, conf) in page:
+            lines.append(text)
+    return "\n".join(lines)
+
 
 APP_DIR = Path(__file__).parent
 UPLOAD_DIR = APP_DIR / "uploads"; UPLOAD_DIR.mkdir(exist_ok=True)
