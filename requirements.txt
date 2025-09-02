@@ -1,16 +1,15 @@
 Flask==3.0.3
 gunicorn==21.2.0
-
-# Core
-numpy<2.0
+numpy==1.26.4
 pillow==10.4.0
-PyMuPDF==1.24.9
+# paddleocr 2.7.0.3 requires PyMuPDF<1.21.0
+PyMuPDF==1.20.2
 onnxruntime==1.18.0
-
-# CV / OCR / Face
-opencv-python-headless==4.6.0.66        # satisfies paddleocr (<=4.6.0.66)
+# Use the version family paddleocr wants (<=4.6.0.66). Let it pull OpenCV itself.
+opencv-python==4.6.0.66
 paddlepaddle==2.5.2
 paddleocr==2.7.0.3
 insightface==0.7.3
 scikit-image==0.25.2
+
 
