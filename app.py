@@ -249,9 +249,13 @@ class FaceMatcher:
     def __init__(self):
         local_root = MODELS_DIR / "insightface"
         local_root.mkdir(parents=True, exist_ok=True)
-        self.app = FaceAnalysis(name="buffalo_l", providers=["CPUExecutionProvider"], root=str(local_root))
-        self.app.prepare(ctx_id=0, det_size=(640, 640))
-        self.last_similarity = None
+        self.app = FaceAnalysis(
+        name="buffalo_l",
+        providers=["CPUExecutionProvider"],
+        root=str(root),
+        allowed_modules=['detection', 'recognition']
+        )
+
     @staticmethod
     def _largest_face(faces):
         if not faces: return None
