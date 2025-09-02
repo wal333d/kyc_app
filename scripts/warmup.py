@@ -10,10 +10,20 @@ print("Warmup start…")
 ocr = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
 print("PaddleOCR ready")
 
-# InsightFace warmup (downloads antelope/buffalo models on first run)
-fa = FaceAnalysis(name="antelopev2", providers=["CPUExecutionProvider"])
+from insightface.app import FaceAnalysis
+
+print("Warmup start…")
+
+# PaddleOCR warmup (leave yours as-is)
+from paddleocr import PaddleOCR
+_ = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
+print("PaddleOCR ready")
+
+# InsightFace warmup (switch to buffalo_l)
+fa = FaceAnalysis(name="buffalo_l", providers=["CPUExecutionProvider"])
 fa.prepare(ctx_id=0, det_size=(640, 640))
 print("InsightFace ready")
+
 
 # Optional: liveness ONNX warmup if you bundle the model
 onnx_path = Path("models/silent_face_80x80.onnx")
