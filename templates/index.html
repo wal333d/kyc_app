@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KYC Verification (Flask, PyMuPDF)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>KYC Verification</h1>
+
+    <!-- Result data for JS -->
+    <div id="result-data"
+         data-result="{{ result or '' }}"
+         data-live="{{ live_score or '' }}"
+         data-ocr-name="{{ ocr_name or '' }}"
+         data-ocr-dob="{{ ocr_dob or '' }}"
+         data-ocr-addr="{{ ocr_addr or '' }}"></div>
+
+    <!-- Modal -->
+    <div id="decision-modal" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+      <div class="modal-card">
+        <div class="modal-header">
+          <span id="modal-title">Verification Result</span>
+          <button id="modal-close" aria-label="Close">×</button>
+        </div>
+        <div class="modal-body">
+          <p id="modal-text"></p>
+          <ul id="modal-extra" class="mt"></ul>
+        </div>
+        <div class="modal-footer">
+          <button class="primary" id="modal-ok">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <form id="kycForm" method="post" action="{{ url_for('verify') }}" enctype="multipart/form-data">
+      <label>Full Name
+        <input type="text" name="name" placeholder="(Optional) Helps disambiguate OCR name">
+      </label>
+
+      <div class="grid">
+        <label>Upload ID (PDF/JPG/PNG)
+          <input type="file" name="id_file" accept=".pdf,.jpg,.jpeg,.png" required>
+        </label>
+      </div>
+
+      <h3>Selfie (Liveness)</h3>
+      <div class="camera">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" width="480" height="360" class="hide"></canvas>
+        <input type="hidden" name="selfie_data" id="selfie_data">
+        <div class="btnrow">
+          <button type="button" id="start">Start Camera</button>
+          <button type="button" id="snap">Capture</button>
+        </div>
+        <img id="preview" alt="Selfie preview"/>
+      </div>
+
+      <button class="primary" type="submit">Verify</button>
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
+

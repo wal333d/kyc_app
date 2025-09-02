@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+uploads/
+*.onnx
+venv/
+__pycache__/
+uploads/
+*.db
+.DS_Store

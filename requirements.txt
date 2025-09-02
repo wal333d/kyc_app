@@ -1,0 +1,9 @@
+Flask==3.0.3
+opencv-python-headless==4.6.0.66
+pillow==10.4.0
+numpy==1.26.4
+PyMuPDF==1.20.2
+onnxruntime==1.18.0
+insightface==0.7.3
+paddlepaddle==2.5.2
+paddleocr==2.7.0.3
