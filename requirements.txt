@@ -1,9 +1,16 @@
 Flask==3.0.3
-opencv-python-headless==4.6.0.66
+gunicorn==21.2.0
+
+# Core
+numpy<2.0
 pillow==10.4.0
-numpy==1.26.4
-PyMuPDF==1.20.2
+PyMuPDF==1.24.9
 onnxruntime==1.18.0
-insightface==0.7.3
+
+# CV / OCR / Face
+opencv-python-headless==4.6.0.66        # satisfies paddleocr (<=4.6.0.66)
 paddlepaddle==2.5.2
 paddleocr==2.7.0.3
+insightface==0.7.3
+scikit-image==0.25.2
+

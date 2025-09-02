@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: kyc-app
+    env: python
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python -u scripts/warmup.py
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 180 --workers 1 --threads 2
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.14
+      - key: WEB_CONCURRENCY
+        value: 1
+      # optional: persist model caches between deploys
+      - key: PADDLEOCR_HOME
+        value: /opt/render/project/.paddleocr
+      - key: INSIGHTFACE_HOME
+        value: /opt/render/project/.insightface
+      # optional: if you moved your DB to a mounted disk (see notes below)
+      # - key: KYC_DB_PATH
+      #   value: /var/data/kyc_logs.db
